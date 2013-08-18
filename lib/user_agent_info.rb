@@ -18,13 +18,12 @@ module UserAgentInfo
 
   class Parser
 
-    attr_reader :agent
-    attr_reader :os
+    attr_reader :agent, :os
 
     def initialize(user_agent_string)
       @user_agent_string = user_agent_string
-      @agent = OpenStruct.new({})
-      @os = OpenStruct.new({})
+      @agent = OpenStruct.new
+      @os = OpenStruct.new
       parse!
     end
 
@@ -51,7 +50,7 @@ module UserAgentInfo
       when /Lobo\/(\d+)/
         ['Lobo', $1]
       when /Maxthon[\/\s](\d+)/i
-        ['Maxthon', $1]      
+        ['Maxthon', $1]
       when /MSIE (\d+)/
         ['Internet Explorer', $1]
       when slash_uas
@@ -83,7 +82,7 @@ module UserAgentInfo
       case @user_agent_string
       when /Windows (NT )?(.+?)[;\)\s]/
         ['Windows', $2 ? win_versions[$2] : 'Unknown']
-      when /SymbianOS\/(\d+)?/ 
+      when /SymbianOS\/(\d+)?/
         ['Symbian', $1]
       when /Windows-NT/
         ['Windows', 'NT']
